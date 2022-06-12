@@ -27,6 +27,13 @@ class AuthService extends GetxService {
     user(await getuser());
   }
 
+  Future logout() async {
+    await storage.delete(key: 'token');
+    token = "";
+    user(User.blank);
+    Get.offAndToNamed('/login');
+  }
+
   Future setToken(String Token) async {
     token = Token;
     await storage.write(key: 'token', value: token);

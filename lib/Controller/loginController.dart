@@ -65,4 +65,9 @@ class LoginPageController extends GetxController {
     _debounce(text: pwTextModel, duration: const Duration(milliseconds: 10));
     super.onInit();
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 }

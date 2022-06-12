@@ -15,7 +15,7 @@ class WebSocketService extends GetxService {
   void setWebSocket() {
     if (isRunning.isTrue) disposeWebSocket();
     var url = "wss://sonserver.xyz/javaChat/ws";
-    websocket = GetSocket(url);
+    websocket = GetSocket(url, ping: const Duration(minutes: 1));
   }
 
   void disposeWebSocket() {
@@ -42,10 +42,14 @@ class WebSocketService extends GetxService {
       var msg = WebSocketResponse.fromJson(jsonDecode(data));
       switch (msg.type) {
         case "Chat":
-          onChat.map((e) => e.call(msg));
+          for (var fun in onChat) {
+            fun.call(msg);
+          }
           break;
         case "InOutMessage":
-          onInOutMessage.map((e) => e.call(msg));
+          for (var fun in onInOutMessage) {
+            fun.call(msg);
+          }
           break;
         default:
           return;
@@ -63,7 +67,7 @@ class WebSocketService extends GetxService {
 
   Future sendRoomIn(int id) async {
     if (authService.token.isEmpty) {
-      Get.offAllNamed('/login');
+      Get.offAllNamed('/');
       return;
     }
     var req =
@@ -73,7 +77,7 @@ class WebSocketService extends GetxService {
 
   Future sendRoomOut(int id) async {
     if (authService.token.isEmpty) {
-      Get.offAllNamed('/login');
+      Get.offAllNamed('/');
       return;
     }
     var req =
@@ -83,11 +87,11 @@ class WebSocketService extends GetxService {
 
   Future sendChat(int id, String text) async {
     if (authService.token.isEmpty) {
-      Get.offAllNamed('/login');
+      Get.offAllNamed('/');
       return;
     }
     var req = WebSocketRequest(
-        auth: authService.token, roomId: id, type: 'chat', message: text);
+        auth: authService.token, roomId: id, type: 'Chat', message: text);
     await sendMessage(req);
   }
 

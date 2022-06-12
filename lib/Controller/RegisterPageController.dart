@@ -53,7 +53,7 @@ class RegisterPageController extends GetxController {
       idCheck(true);
       return;
     }
-    NickRegisterText.errorText('사용할 수 없는 I 입니다.');
+    NickRegisterText.errorText('사용할 수 없는 Id 입니다.');
   }
 
   void onRegister() async {
@@ -63,7 +63,7 @@ class RegisterPageController extends GetxController {
         userId: IdRegisterText.text.value,
         userPw: Pw1RegisterText.text.value,
         userNick: NickRegisterText.text.value,
-        userProfileColor: Random().nextInt(Colors.primaries.length));
+        userProfileColor: Random().nextInt(Colors.primaries.length - 1) + 1);
     var res = await userProvider.postRegister(req);
     if (res.hasError || res.body['error'] != null || !res.body['data']) {
       isError(true);
@@ -157,5 +157,10 @@ class RegisterPageController extends GetxController {
     _debounce(text: NickRegisterText);
 
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 }

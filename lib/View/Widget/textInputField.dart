@@ -11,8 +11,10 @@ class TextInputField extends StatelessWidget {
   final bool isPassword;
   final CrossAxisAlignment? crossAxisAlignment;
   final MainAxisAlignment? mainAxisAlignment;
+  final VoidCallback? onSubmmit;
+  final bool expand;
 
-  TextInputField(
+  const TextInputField(
       {Key? key,
       required this.model,
       this.checkButton,
@@ -20,7 +22,9 @@ class TextInputField extends StatelessWidget {
       this.width,
       this.height,
       this.crossAxisAlignment,
-      this.mainAxisAlignment})
+      this.mainAxisAlignment,
+      this.onSubmmit,
+      this.expand = false})
       : super(key: key);
 
   @override
@@ -37,14 +41,17 @@ class TextInputField extends StatelessWidget {
         mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: width ?? Get.mediaQuery.size.width * 0.25,
+            width: width,
             height: height ?? 70,
             child: TextField(
+                textInputAction: TextInputAction.go,
                 obscureText: isPassword,
                 enableSuggestions: !isPassword,
                 autocorrect: !isPassword,
                 onChanged: (text) => onTextFieldChange(text, model),
+                onSubmitted: (text) => onSubmmit,
                 controller: model.textEditingController,
+                expands: expand,
                 decoration: InputDecoration(
                   helperText: model.helpText,
                   errorText:

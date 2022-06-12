@@ -59,6 +59,7 @@ class RegisterPage extends GetView<RegisterPageController> {
                       color: Colors.green,
                       icon: Icons.check),
                   TextInputField(
+                      width: Get.mediaQuery.size.width * 0.25,
                       model: controller.IdRegisterText,
                       checkButton: _bulldCheckButton(
                         onPressed: () => controller.onIdCheck(),
@@ -68,6 +69,7 @@ class RegisterPage extends GetView<RegisterPageController> {
                     vertical: 7,
                   )),
                   TextInputField(
+                    width: Get.mediaQuery.size.width * 0.25,
                     model: controller.Pw1RegisterText,
                     isPassword: true,
                   ),
@@ -76,6 +78,7 @@ class RegisterPage extends GetView<RegisterPageController> {
                     vertical: 7,
                   )),
                   TextInputField(
+                    width: Get.mediaQuery.size.width * 0.25,
                     model: controller.Pw2RegisterText,
                     isPassword: true,
                   ),
@@ -89,6 +92,7 @@ class RegisterPage extends GetView<RegisterPageController> {
                       color: Colors.green,
                       icon: Icons.check),
                   TextInputField(
+                    width: Get.mediaQuery.size.width * 0.25,
                     model: controller.NickRegisterText,
                     checkButton: _bulldCheckButton(
                         onPressed: () => controller.onNickCheck()),
