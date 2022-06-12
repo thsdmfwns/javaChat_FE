@@ -38,6 +38,7 @@ class CreateRoomDialogController extends GetxController {
     var room = Room.fromJson(res.body['data']);
     createRoomTextModel.clearText();
     roomNameCheck(false);
+    Get.back();
     Get.offAndToNamed('chat?id=${room.idx}');
   }
 
